@@ -116,3 +116,66 @@ function MapViewModel() {
       getInformation(results[0])
     }
   }
+
+  // Trigger click event for markers that are clicked
+  self.clickMarker = function(venue) {
+    var venueName = venue.venue.name.toLowerCase();
+    for (var i in locations) {
+      if (locations[i].name === venueName) {
+        google.maps.event.trigger(locations[i].marker, 'click');
+        map.panTo(locations[i].position);
+      }
+    }
+  };
+
+  // Update List based on Search Keyword
+  self.displayList = ko.computed(function() {
+    var venue;
+    var list = [];
+    var keyword = self.keyword().toLowerCase();
+    for (var i in self.topPicksList()) {
+      venue = self.topPicksList()[i].venue;
+      if (venue.name.toLowerCase().indexOf(keyword) != -1 ||
+        venue.categories[0].name.toLowerCase().indexOf(keyword) != -1) {
+        list.push(self.topPicksList()[i]);
+      }
+    }
+    self.myFilteredList(list);
+  });
+
+  // Set markers on map, Request popular places from FourSquare API
+  function getInformation(data) {
+    var lat = data.geometry.location.lat();
+    var lng = data.geometry.location.lng();
+    var name = data.name;
+    newLocation = new google.maps.LatLng(lat, lng);
+    map.setCenter(newLocation);
+
+    // Location marker
+    var marker = new google.maps.Marker({
+      map: map,
+      position: data.geometry.location,
+      title: name
+    });
+    myneighMark.push(marker);
+
+    // Location marker listener
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(name);
+      infowindow.open(map, marker);
+    });
+
+    // Request Popular Places -- pulled from foursquare //https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=CLIENT_ID&client_secret=CLIENT_SECRET&v=YYYYMMDD
+    foursquareBaseUri = "https://api.foursquare.com/v2/venues/explore?ll=";
+    baseLocation = lat + ", " + lng;
+    
+	  extraParams = "&limit=20&section=topPicks&day=any&time=any&locale=en&client_id=WQZJWHGHCD1AMUKZOXNBL0Y42OIHBDUU3SHXE3US2ENFDQMQ&client_secret=UR3CS2BXS2Z13UUMT3LSOP3ZKWPOI1F5MAT4VCVUAKR3B4UA&v=20150507";
+    foursquareQueryUri = foursquareBaseUri + baseLocation + extraParams;
+
+    $.getJSON(foursquareQueryUri, function(data) {
+      self.topPicksList(data.response.groups[0].items);
+      for (var i in self.topPicksList()) {
+        createMarkers(self.topPicksList()[i].venue);
+      }
+    });
+  }
