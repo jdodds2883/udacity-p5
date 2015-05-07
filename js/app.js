@@ -29,7 +29,7 @@ function MapSearchLocation() {
   // Defines how large the map will be on start
   function initMap() {
     var mapOptions = {
-      zoom: 14,
+      zoom: 16,
       disableDefaultUI: true
     };
     map = new google.maps.Map(document.querySelector('#map'), mapOptions);
