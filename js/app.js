@@ -100,3 +100,19 @@ function MapViewModel() {
       myneighMark.pop();
     }
   }
+
+  // Request Location Data from PlaceService
+  function requestNeighborhood(neighborhood) {
+    var request = {
+      query: neighborhood
+    };
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, neighborhoodCallback);
+  }
+
+  // Call back method for Location
+  function neighborhoodCallback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      getInformation(results[0])
+    }
+  }
