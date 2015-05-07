@@ -7,7 +7,7 @@ var markerClass = function(marker, name, category, position) {
 };
 
 // Map View
-function MapViewModel() {
+function MapSearchLocation() {
   // Variables needed to start map
   var self = this; 
   var map;
@@ -179,3 +179,41 @@ function MapViewModel() {
       }
     });
   }
+
+  // Create Markers for Popular Places 
+  function createMarkers(venue) {
+    var lat = venue.location.lat;
+    var lng = venue.location.lng;
+    var name = venue.name;
+    var address = venue.location.formattedAddress;
+    var position = new google.maps.LatLng(lat, lng);
+    var category = venue.categories[0].name;
+    var myrating = venue.rating;
+
+   
+    // Popular Place Marker
+    var marker = new google.maps.Marker({
+      map: map,
+      position: position,
+      title: name
+    });
+    locations.push(new markerClass(marker, name.toLowerCase(), category.toLowerCase(), position));
+
+
+    // DOM element for pop up infowindow content
+    var dom = '<strong>' + name + '</strong>' + '<br><br>' + category + '<br><br>' + address + '<br><br><p>FourSquare Rating: </p>' + myrating;
+      
+    
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(dom);
+      infowindow.open(map, this);
+      map.panTo(position);
+    });
+  }
+}
+
+
+// Start the Map
+$(function() {
+  ko.applyBindings(new MapSearchLocation());
+});
