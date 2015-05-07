@@ -35,3 +35,68 @@ function MapViewModel() {
     map = new google.maps.Map(document.querySelector('#map'), mapOptions);
     infowindow = new google.maps.InfoWindow();
   }
+
+  self.setToggle = function() {
+    if (self.myBoolean() == true) {
+      self.myBoolean(false);
+    }else{
+      self.myBoolean(true);
+    }
+  };
+  
+  // Resize the map to the proper window size height
+  self.mapSize = ko.computed(function() {
+    $("#map").height($(window).height());
+  }); 
+
+  // Once your location is centered - triggers the markers on the map
+  self.displayMarkers = ko.computed(function() {
+    filterMarkers(self.keyword().toLowerCase());
+  });
+
+  // Filter the stored markers
+  function filterMarkers(keyword) {
+    for (var i in locations) {
+      if (locations[i].marker.map === null) {
+        locations[i].marker.setMap(map);
+      }
+      if (locations[i].name.indexOf(keyword) === -1 &&
+        locations[i].category.indexOf(keyword) === -1) {
+        locations[i].marker.setMap(null);
+      }
+    }
+  }
+
+  // Update Location
+  self.computedNeighborhood = ko.computed(function() {
+    if (self.neighborhood() != '') {
+      if (locations.length > 0) {
+        removelocations();
+      }
+      removeNeighborhoodMarker();
+      requestNeighborhood(self.neighborhood());
+      self.keyword('');
+    }
+  });
+
+  // Remove Locations
+  function removelocations() {
+    for (var i in locations) {
+      locations[i].marker.setMap(null);
+      locations[i].marker = null;
+    }
+    while (locations.length > 0) {
+      locations.pop();
+    }
+  }
+
+  // Remove existing Location markers
+  function removeNeighborhoodMarker() {
+    for (var i in myneighMark) {
+      myneighMark[i].setMap(null);
+      myneighMark[i] = null;
+    }
+    while (myneighMark.length > 0) {
+      myneighMark.pop();
+    }
+  }
