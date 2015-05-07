@@ -24,10 +24,16 @@
 		  <div style="margin-left: 5px">
 			  <button class="btn btn-sm btn-default" type="button">Search</button>
 			</div>
-		</div> 
+		</div>
 		<!--  This toggles the div on the right hand side that list all the places FourSquare found  	-->
 		<div id="mapPlaces">
-		  <div class="tittle" data-bind="click: setToggle" id="toggleBox"><h2 data-bind="text: neighborhood" ></h2>
+			<!-- Fitler -- search with in places found -->
+			<div id="filterPlaces">
+			  <div><input data-bind="value: keyword" type="text" class="form-control" placeholder="Filter places at this location"></div>
+			  <div><button class="btn btn-default" type="button">Find</button></div>
+			</div>
+			<div data-bind="click: setToggle" id="toggleBox"><h2 data-bind="text: neighborhood" ></h2>
+			
 			<div data-bind="visible: myBoolean"> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces -->
 			  <ul class="list-group" data-bind="foreach: myFilteredList">
 				<li class="list-group-item" data-bind="click: $root.clickMarker">

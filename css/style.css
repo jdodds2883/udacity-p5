@@ -23,5 +23,9 @@ body {
   position: fixed;
   top: 15px;
   right: 15px;
-  
 }
+#filterPlaces {
+	display: flex;
+	max-width: 600px;
+}
+	
