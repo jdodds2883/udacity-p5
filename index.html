@@ -25,5 +25,18 @@
 			  <button class="btn btn-sm btn-default" type="button">Search</button>
 			</div>
 		</div> 
+		<!--  This toggles the div on the right hand side that list all the places FourSquare found  	-->
+		<div id="mapPlaces">
+		  <div class="tittle" data-bind="click: setToggle" id="toggleBox"><h2 data-bind="text: neighborhood" ></h2>
+			<div data-bind="visible: myBoolean"> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces -->
+			  <ul class="list-group" data-bind="foreach: myFilteredList">
+				<li class="list-group-item" data-bind="click: $root.clickMarker">
+				  <p><h4><span class="v-name" data-bind="text: venue.name"></span></h4></p>
+				  <p><span data-bind="text: venue.categories[0].name"></span></p>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
   	</body>
 </html>
