@@ -8,12 +8,16 @@
 		<link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<link href="css/offline-language-english-indicator.css" rel="stylesheet" type="text/css">
+		<link href="css/offline-language-english.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/knockout-3.3.0.js" async></script>
 		<script type="text/javascript" src="js/bootstrap.js" async></script>
 		<script type="text/javascript" src="js/app.js" async></script>
+		<script type="text/javascript" src="js/offline.min.js" async></script>
   	</head>
+	
   	<body>
 		 <div id="map"></div>
 		<!-- Search Location -- defines the input box and binds the values to be searched -->
@@ -44,5 +48,6 @@
 			</div>
 		  </div>
 		</div>
+		<script>Offline.check()</script>
   	</body>
 </html>
