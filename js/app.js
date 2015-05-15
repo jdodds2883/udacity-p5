@@ -95,7 +95,6 @@ function MapSearchLocation() {
 	if(conn == false) {
 		alert("You have no internet connection");
 	}
-	  console.log(conn);
     if (self.neighborhood() != '') {
       if (locations.length > 0) {
         removelocations();
