@@ -90,6 +90,10 @@ function MapSearchLocation() {
 
   // Update Location
   self.computedNeighborhood = ko.computed(function() {
+	// Check internet connection
+	if(doesConnectionExist() == false) {
+		alert("You have no internet connection");
+	}
     if (self.neighborhood() != '') {
       if (locations.length > 0) {
         removelocations();
