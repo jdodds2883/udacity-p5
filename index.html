@@ -17,36 +17,30 @@
 		<script type="text/javascript" src="js/app.js" async></script>
 		<script type="text/javascript" src="js/offline.min.js" async></script>
   	</head>
-	
   	<body>
-		 <div id="map"></div>
+		<div id="map"></div>
 		<!-- Search Location -- defines the input box and binds the values to be searched -->
 		<div id="location" class="input-group">
-		  <div style="">
+			<div style="min-width: 150px;">
 			  <input data-bind="value: neighborhood" type="text" class="form-control" id="searchLocation" placeholder="Enter Location">
-			</div>
-		  <div style="margin-left: 5px">
-			  <button class="btn btn-sm btn-default" type="button">Search</button>
 			</div>
 		</div>
 		<!--  This toggles the div on the right hand side that list all the places FourSquare found  	-->
 		<div id="mapPlaces">
 			<!-- Fitler -- search with in places found -->
 			<div id="filterPlaces">
-			  <div><input data-bind="value: keyword" type="text" class="form-control" placeholder="Filter places at this location"></div>
-			  <div><button class="btn btn-default" type="button">Find</button></div>
+				<div><input data-bind="value: keyword" type="text" class="form-control" placeholder="Filter places at this location"></div>
 			</div>
 			<div id="toggleBox"><h2 data-bind="text: neighborhood" ></h2> <!-- data-bind="click: setToggle" -->
-			
-			<div> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces ** data-bind="visible: myBoolean"-->
-			  <ul class="list-group" data-bind="foreach: myFilteredList">
-				<li class="list-group-item" data-bind="click: $root.clickMarker">
-				  <p><h4><span class="v-name" data-bind="text: venue.name"></span></h4></p>
-				  <p><span data-bind="text: venue.categories[0].name"></span></p>
-				</li>
-			  </ul>
+				<div> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces ** data-bind="visible: myBoolean"-->
+					<ul class="list-group" data-bind="foreach: myFilteredList">
+						<li class="list-group-item" data-bind="click: $root.clickMarker">
+							<p><h4><span class="v-name" data-bind="text: venue.name"></span></h4></p>
+							<p><span data-bind="text: venue.categories[0].name"></span></p>
+						</li>
+					</ul>
+				</div>
 			</div>
-		  </div>
 		</div>
 		<script>Offline.check()</script>
   	</body>
