@@ -32,9 +32,9 @@
 			  <div><input data-bind="value: keyword" type="text" class="form-control" placeholder="Filter places at this location"></div>
 			  <div><button class="btn btn-default" type="button">Find</button></div>
 			</div>
-			<div data-bind="click: setToggle" id="toggleBox"><h2 data-bind="text: neighborhood" ></h2>
+			<div id="toggleBox"><h2 data-bind="text: neighborhood" ></h2> <!-- data-bind="click: setToggle" -->
 			
-			<div data-bind="visible: myBoolean"> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces -->
+			<div> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces ** data-bind="visible: myBoolean"-->
 			  <ul class="list-group" data-bind="foreach: myFilteredList">
 				<li class="list-group-item" data-bind="click: $root.clickMarker">
 				  <p><h4><span class="v-name" data-bind="text: venue.name"></span></h4></p>

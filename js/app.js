@@ -1,9 +1,9 @@
 // Defines the data for the (AOI) Areas of Interest
 var markerClass = function(marker, name, category, position) {
-  this.marker = marker,
-  this.name = name,
-  this.category = category,
-  this.position = position
+  this.marker = marker;
+  this.name = name;
+  this.category = category;
+  this.position = position;
 };
 
 // Map View
@@ -169,7 +169,7 @@ function MapSearchLocation() {
     foursquareBaseUri = "https://api.foursquare.com/v2/venues/explore?ll=";
     baseLocation = lat + ", " + lng;
     
-	  extraParams = "&limit=20&section=topPicks&day=any&time=any&locale=en&client_id=WQZJWHGHCD1AMUKZOXNBL0Y42OIHBDUU3SHXE3US2ENFDQMQ&client_secret=UR3CS2BXS2Z13UUMT3LSOP3ZKWPOI1F5MAT4VCVUAKR3B4UA&v=20150507";
+	extraParams = "&limit=20&section=topPicks&day=any&time=any&locale=en&client_id=WQZJWHGHCD1AMUKZOXNBL0Y42OIHBDUU3SHXE3US2ENFDQMQ&client_secret=UR3CS2BXS2Z13UUMT3LSOP3ZKWPOI1F5MAT4VCVUAKR3B4UA&v=20150507";
     foursquareQueryUri = foursquareBaseUri + baseLocation + extraParams;
 
     $.getJSON(foursquareQueryUri, function(data) {
