@@ -91,9 +91,11 @@ function MapSearchLocation() {
   // Update Location
   self.computedNeighborhood = ko.computed(function() {
 	// Check internet connection
-	if(doesConnectionExist() == false) {
+	var conn = doesConnectionExist();
+	if(conn == false) {
 		alert("You have no internet connection");
 	}
+	  console.log(conn);
     if (self.neighborhood() != '') {
       if (locations.length > 0) {
         removelocations();
