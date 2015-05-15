@@ -8,41 +8,12 @@
 		<link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="css/style.css" rel="stylesheet" type="text/css">
-<!--		<link rel="stylesheet" href="css/offline-language-english-indicator.css" />-->
-<!--        <link rel="stylesheet" href="css/offline-language-english.css" />-->
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/knockout-3.3.0.js" async></script>
 		<script type="text/javascript" src="js/bootstrap.js" async></script>
 		<script type="text/javascript" src="js/app.js" async></script>
-<!--		<script type="text/javascript" src="js/offline.min.js" async></script>-->
-	</head>  	
-	<script>
-		function doesConnectionExist() {
-			var xhr = new XMLHttpRequest();
-			var file = "index.html";
-			var randomNum = Math.round(Math.random() * 10000);
-
-			xhr.open('HEAD', file + "?rand=" + randomNum, false);
-
-			try {
-				xhr.send();
-
-				if (xhr.status >= 200 && xhr.status < 304) {
-					return true;
-				} else {
-					return false;
-				}
-			} catch (e) {
-				return false;
-			}
-			$(document).on("pageload",function(){
-				if(doesConnectionExist() == false) {
-				  alert("You have no internet connection");
-				}
-			});
-		}
-	</script>
+	</head> 
   	<body>
 		<div id="map"></div>
 		<!-- Search Location -- defines the input box and binds the values to be searched -->
@@ -57,8 +28,8 @@
 			<div id="filterPlaces">
 				<div><input data-bind="value: keyword" type="text" class="form-control" placeholder="Filter places at this location"></div>
 			</div>
-			<div id="toggleBox"><h2 data-bind="text: neighborhood" ></h2> <!-- data-bind="click: setToggle" -->
-				<div> <!-- this is used for knockout in the toggle hide/show when you click on the Location name in the mapPlaces ** data-bind="visible: myBoolean"-->
+			<div id="toggleBox"><h2 data-bind="text: neighborhood" ></h2> 
+				<div>
 					<ul class="list-group" data-bind="foreach: myFilteredList">
 						<li class="list-group-item" data-bind="click: $root.clickMarker">
 							<p><h4><span class="v-name" data-bind="text: venue.name"></span></h4></p>

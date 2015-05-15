@@ -1,3 +1,24 @@
+// Checks for internet connection 
+function doesConnectionExist() {
+			var xhr = new XMLHttpRequest();
+			var file = "index.html";
+			var randomNum = Math.round(Math.random() * 10000);
+
+			xhr.open('HEAD', file + "?rand=" + randomNum, false);
+
+			try {
+				xhr.send();
+
+				if (xhr.status >= 200 && xhr.status < 304) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (e) {
+				return false;
+			}
+		}
+
 // Defines the data for the (AOI) Areas of Interest
 var markerClass = function(marker, name, category, position) {
   this.marker = marker;

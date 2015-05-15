@@ -13,4 +13,6 @@ This app uses:
 
 Google Maps API
 FourSquare API
+PlaceService
+
 
