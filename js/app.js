@@ -1,23 +1,21 @@
 // Checks for internet connection 
 function doesConnectionExist() {
-			var xhr = new XMLHttpRequest();
-			var file = "index.html";
-			var randomNum = Math.round(Math.random() * 10000);
+  var xhr = new XMLHttpRequest();
+  var file = "index.html";
+  var randomNum = Math.round(Math.random() * 10000);
+  xhr.open('HEAD', file + "?rand=" + randomNum, false);
+  try {
+	 xhr.send();
 
-			xhr.open('HEAD', file + "?rand=" + randomNum, false);
-
-			try {
-				xhr.send();
-
-				if (xhr.status >= 200 && xhr.status < 304) {
-					return true;
-				} else {
-					return false;
-				}
-			} catch (e) {
-				return false;
-			}
-		}
+	 if (xhr.status >= 200 && xhr.status < 304) {
+		return true;
+	 } else {
+		return false;
+	 }
+  } catch (e) {
+	 return false;
+  }
+}
 
 // Defines the data for the (AOI) Areas of Interest
 var markerClass = function(marker, name, category, position) {
@@ -58,7 +56,7 @@ function MapSearchLocation() {
   }
 
   self.setToggle = function() {
-    if (self.myBoolean() == true) {
+    if (self.myBoolean() === true) {
       self.myBoolean(false);
     }else{
       self.myBoolean(true);
@@ -92,7 +90,7 @@ function MapSearchLocation() {
   self.computedNeighborhood = ko.computed(function() {
 	// Check internet connection
 	var conn = doesConnectionExist();
-	if(conn == false) {
+	if(conn === false) {
 		alert("You have no internet connection");
 	}
     if (self.neighborhood() != '') {
@@ -139,7 +137,7 @@ function MapSearchLocation() {
   // Call back method for Location
   function neighborhoodCallback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      getInformation(results[0])
+      getInformation(results[0]);
     }
   }
 
