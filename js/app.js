@@ -1,46 +1,48 @@
 // Checks for internet connection 
 function doesConnectionExist() {
-  var xhr = new XMLHttpRequest();
-  var file = "index.html";
-  var randomNum = Math.round(Math.random() * 10000);
-  xhr.open('HEAD', file + "?rand=" + randomNum, false);
-  try {
-	 xhr.send();
+    var xmlhttp = new XMLHttpRequest();
+    var file = "README.md";
+    var randomNum = Math.round(Math.random() * 10000);
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var response = xmlhttp.responseText;
+			if (xmlhttp.status >= 200 && xmlhttp.status < 304) {
+				return true;
+			 } else {
+				return false;
+			 }
+		}
+	}
 
-	 if (xhr.status >= 200 && xhr.status < 304) {
-		return true;
-	 } else {
-		return false;
-	 }
-  } catch (e) {
-	 return false;
-  }
+	xmlhttp.open('GET', file + "?rand=" + randomNum, true);
+	xmlhttp.send();
 }
 
 // Defines the data for the (AOI) Areas of Interest
 var markerClass = function(marker, name, category, position) {
-  this.marker = marker;
-  this.name = name;
-  this.category = category;
-  this.position = position;
+	"use strict";
+    this.marker = marker;
+    this.name = name;
+    this.category = category;
+    this.position = position;
 };
 
 // Map View
 function MapSearchLocation() {
-  // Variables needed to start map
-  var self = this; 
-  var map;
-  var service;
-  var newLocation; 
-  var infowindow;
-  var myneighMark = [];
-  var locations = []; 
-  var Neighborhood = "Seattle"; // The initial search on load
-  self.myBoolean=ko.observable(true); // Used to Toggle the (AOI)
-  self.topPicksList = ko.observableArray([]); // popular places in defined neighbor hood
-  self.myFilteredList = ko.observableArray(self.topPicksList()); // Filters
-  self.neighborhood = ko.observable(Neighborhood); // Search Location
-  self.keyword = ko.observable(''); // Search Keyword 
+    // Variables needed to start map
+    var self = this; 
+    var map;
+    var service;
+    var newLocation; 
+    var infowindow;
+    var myneighMark = [];
+    var locations = []; 
+    var Neighborhood = "Seattle"; // The initial search on load
+    self.myBoolean=ko.observable(true); // Used to Toggle the (AOI)
+    self.topPicksList = ko.observableArray([]); // popular places in defined neighbor hood
+    self.myFilteredList = ko.observableArray(self.topPicksList()); // Filters
+    self.neighborhood = ko.observable(Neighborhood); // Search Location
+    self.keyword = ko.observable(''); // Search Keyword 
   
   // Start Map
   initMap();
@@ -75,7 +77,7 @@ function MapSearchLocation() {
 
   // Filter the stored markers
   function filterMarkers(keyword) {
-    for (var i in locations) {
+    for (var i = 0; i < locations.length; i++) {
       if (locations[i].marker.map === null) {
         locations[i].marker.setMap(map);
       }
@@ -93,7 +95,7 @@ function MapSearchLocation() {
 	if(conn === false) {
 		alert("You have no internet connection");
 	}
-    if (self.neighborhood() != '') {
+    if (self.neighborhood() !== '') {
       if (locations.length > 0) {
         removelocations();
       }
@@ -105,7 +107,7 @@ function MapSearchLocation() {
 
   // Remove Locations
   function removelocations() {
-    for (var i in locations) {
+    for (var i = 0; i < locations.length; i++) {
       locations[i].marker.setMap(null);
       locations[i].marker = null;
     }
@@ -116,7 +118,7 @@ function MapSearchLocation() {
 
   // Remove existing Location markers
   function removeNeighborhoodMarker() {
-    for (var i in myneighMark) {
+    for (var i = 0; i < myneighMark.length; i++) {
       myneighMark[i].setMap(null);
       myneighMark[i] = null;
     }
@@ -157,7 +159,7 @@ function MapSearchLocation() {
     var venue;
     var list = [];
     var keyword = self.keyword().toLowerCase();
-    for (var i in self.topPicksList()) {
+    for (var i = 0; i < self.topPicksList().length; i++) {
       venue = self.topPicksList()[i].venue;
       if (venue.name.toLowerCase().indexOf(keyword) != -1 ||
         venue.categories[0].name.toLowerCase().indexOf(keyword) != -1) {
