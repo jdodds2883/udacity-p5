@@ -4,15 +4,14 @@ function doesConnectionExist() {
     var file = "README.md";
     var randomNum = Math.round(Math.random() * 10000);
 	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var response = xmlhttp.responseText;
+		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 			if (xmlhttp.status >= 200 && xmlhttp.status < 304) {
 				return true;
 			 } else {
 				return false;
 			 }
 		}
-	}
+	};
 
 	xmlhttp.open('GET', file + "?rand=" + randomNum, true);
 	xmlhttp.send();
@@ -138,7 +137,7 @@ function MapSearchLocation() {
 
   // Call back method for Location
   function neighborhoodCallback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       getInformation(results[0]);
     }
   }
@@ -161,8 +160,8 @@ function MapSearchLocation() {
     var keyword = self.keyword().toLowerCase();
     for (var i = 0; i < self.topPicksList().length; i++) {
       venue = self.topPicksList()[i].venue;
-      if (venue.name.toLowerCase().indexOf(keyword) != -1 ||
-        venue.categories[0].name.toLowerCase().indexOf(keyword) != -1) {
+      if (venue.name.toLowerCase().indexOf(keyword) !== -1 ||
+        venue.categories[0].name.toLowerCase().indexOf(keyword) !== -1) {
         list.push(self.topPicksList()[i]);
       }
     }
@@ -200,7 +199,7 @@ function MapSearchLocation() {
 
     $.getJSON(foursquareQueryUri, function(data) {
       self.topPicksList(data.response.groups[0].items);
-      for (var i in self.topPicksList()) {
+      for (var i = 0; i < self.topPicksList().length; i++) {
         createMarkers(self.topPicksList()[i].venue);
       }
     });
